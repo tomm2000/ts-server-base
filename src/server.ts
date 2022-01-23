@@ -1,9 +1,15 @@
-import { path } from './config/const';
-
-/// EXPRESS SERVER =======
+//- NODE MODULES -------------------------------------------------
 import express from 'express'
-import { autoOpenRoutes } from './helpers/routeAPI';
 import cors from 'cors'
+//----------------------------------------------------------------
+
+//- FILE IMPORTS -------------------------------------------------
+import { path } from './config/const'
+import { openRoutes } from './helpers/routeAPI';
+import { findFiles } from './helpers/fileFinderAPI';
+//----------------------------------------------------------------
+
+//- EXPRESS SERVER -----------------------------------------------
 
 const app = express();
 const port = process.env.PORT || 3000
@@ -16,9 +22,10 @@ app.listen(port, () => {
 
 global.home_dir = __dirname
 
-autoOpenRoutes(app, `${__dirname}/${path.ROUTES}`)
+let p = `${__dirname}\\${path.ROUTES}`
 
-/// =======================
+let files = findFiles(p, '.js')
 
-/// DISCORD BOT =========== 
-/// =======================
+openRoutes(app, files)
+
+//----------------------------------------------------------------

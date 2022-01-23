@@ -1,25 +1,25 @@
-import { path } from '../config/const'
-import { findFiles } from './fileFinderAPI'
-
 type file = {
   path: string,
   name: string,
   extension: string,
+  complete: string,
 }
 
-export function openRoutes(app: Express.Application, files: file[]) {
+/**
+ * 
+ * @param app The express application
+ * @param files A list of the route files
+ * @param routes_base The base path for http requests
+ */
+export function openRoutes(app: Express.Application, files: file[], routes_base: string | undefined = undefined) {
   files.forEach((route) => {
-    let p = `${global.home_dir}/${path.ROUTES}/${route.path}/${route.name}${route.extension}`
+    let r = require(route.complete)
 
-    let r = require(p)
+    let base = routes_base ? `${routes_base}\\` : ''
+    
     if(r.get)
-      r.get(app, `${route.path}/${route.name}`)
+      r.get(app,  `${base}${route.path}\\${route.name}`)
     if(r.post)
-      r.post(app, `${route.path}/${route.name}`)
+      r.post(app, `${base}${route.path}\\${route.name}`)
   })
-}
-
-export function autoOpenRoutes(app: Express.Application, path: string) {
-  let routes = findFiles(path, '.js')
-  openRoutes(app, routes)
 }

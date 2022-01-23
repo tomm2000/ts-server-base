@@ -7,27 +7,41 @@ type file = {
   complete: string,
 }
 
+/**
+ * Recursively searches for all the files in a folder
+ * @param start the base path where the program should look
+ * @param extension the extension to find
+ * @param path the current path the function is searching, leave empty
+ * @returns a list of `file` found
+ */
 export function findFiles(start: string, extension: string, path: string = ''): file[] {
   let search = []
 
+  //* we search all the entries in the base folder
   try {
     search = fs.readdirSync(start + path)
   } catch (error) {
-    console.log('[WARN] file folder not found!')
+    console.log(`[WARN] "${start + path}" folder not found!`)
     return []
   }
   let files: file[] = []
 
-  search.forEach((thing) => {
-    if(thing.endsWith(extension)) {
+  //* for each entry...
+  search.forEach((entry) => {
+    //* if it is a file we are looking for we save it
+    if(entry.endsWith(extension)) {
       files.push({
-        name: thing.replace(extension, ''),
+        name: entry.replace(extension, ''),
         path,
         extension,
-        complete: `${start}/${path}/${thing}`
+        complete: `${start}${path}\\${entry}`
       })
-    } else if(!thing.includes('.')) {
-      files = files.concat(findFiles(start, extension, `${path}/${thing}`))
+
+    //* if it is a folder we search in it recursively
+    } else if(!entry.includes('.')) {
+      let p = `${path}\\${entry}`
+
+      files = files.concat(findFiles(start, extension, p))
     }
   })
 
