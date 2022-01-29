@@ -1,6 +1,9 @@
 //- NODE MODULES -------------------------------------------------
-import express from 'express'
-import cors from 'cors'
+import * as express from 'express'
+import * as cors from 'cors'
+import * as fs from 'fs'
+
+
 //----------------------------------------------------------------
 
 //- FILE IMPORTS -------------------------------------------------
@@ -28,4 +31,4 @@ let files = findFiles(p, '.js')
 
 openRoutes(app, files)
 
-//----------------------------------------------------------------
+//---------------------------------------------------------------- 
