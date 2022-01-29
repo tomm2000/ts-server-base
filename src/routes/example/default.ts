@@ -1,4 +1,4 @@
-import * as express from 'express'
+import express from 'express'
 
 export function get(app: express.Application, route: string) {
   console.log(`[INFO] laoded route: ${route} : get`)

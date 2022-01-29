@@ -1,8 +1,7 @@
 //- NODE MODULES -------------------------------------------------
-import * as express from 'express'
-import * as cors from 'cors'
-import * as fs from 'fs'
-
+import express from 'express'
+import cors from 'cors'
+import fs from 'fs'
 
 //----------------------------------------------------------------
 
