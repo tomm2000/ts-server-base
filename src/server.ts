@@ -24,7 +24,7 @@ app.listen(port, () => {
 
 global.home_dir = __dirname
 
-let p = `${__dirname}\\${path.ROUTES}`
+let p = `${__dirname}/${path.ROUTES}`
 
 let files = findFiles(p, '.js')
 

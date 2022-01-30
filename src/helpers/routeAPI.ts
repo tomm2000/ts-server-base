@@ -15,11 +15,11 @@ export function openRoutes(app: Express.Application, files: file[], routes_base:
   files.forEach((route) => {
     let r = require(route.complete)
 
-    let base = routes_base ? `${routes_base}\\` : ''
+    let base = routes_base ? `${routes_base}/` : ''
     
     if(r.get)
-      r.get(app,  `${base}${route.path}\\${route.name}`)
+      r.get(app,  `${base}${route.path}/${route.name}`)
     if(r.post)
-      r.post(app, `${base}${route.path}\\${route.name}`)
+      r.post(app, `${base}${route.path}/${route.name}`)
   })
 }

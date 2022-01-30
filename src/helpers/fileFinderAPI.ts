@@ -34,12 +34,12 @@ export function findFiles(start: string, extension: string, path: string = ''): 
         name: entry.replace(extension, ''),
         path,
         extension,
-        complete: `${start}${path}\\${entry}`
+        complete: `${start}${path}/${entry}`
       })
 
     //* if it is a folder we search in it recursively
     } else if(!entry.includes('.')) {
-      let p = `${path}\\${entry}`
+      let p = `${path}/${entry}`
 
       files = files.concat(findFiles(start, extension, p))
     }
