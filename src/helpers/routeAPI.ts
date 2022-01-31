@@ -13,13 +13,17 @@ type file = {
  */
 export function openRoutes(app: Express.Application, files: file[], routes_base: string | undefined = undefined) {
   files.forEach((route) => {
-    let r = require(route.complete)
+    let path = route.complete
 
-    let base = routes_base ? `${routes_base}/` : ''
-    
-    if(r.get)
-      r.get(app,  `${base}${route.path}/${route.name}`)
-    if(r.post)
-      r.post(app, `${base}${route.path}/${route.name}`)
+    path = path.replace((global as any).home_dir, '..')
+
+    import(path).then(r => {
+      let base = routes_base ? `${routes_base}/` : ''
+      
+      if(r.get)
+        r.get(app,  `${base}${route.path}/${route.name}`)
+      if(r.post)
+        r.post(app, `${base}${route.path}/${route.name}`)
+    })
   })
 }

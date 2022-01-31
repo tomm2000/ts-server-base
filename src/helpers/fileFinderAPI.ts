@@ -1,4 +1,5 @@
 import fs from 'fs'
+import chalk from 'chalk'
 
 type file = {
   path: string,
@@ -15,13 +16,13 @@ type file = {
  * @returns a list of `file` found
  */
 export function findFiles(start: string, extension: string, path: string = ''): file[] {
-  let search = []
+  let search: string[] = []
 
   //* we search all the entries in the base folder
   try {
     search = fs.readdirSync(start + path)
   } catch (error) {
-    console.log(`[WARN] "${start + path}" folder not found!`)
+    console.log(chalk.yellow('[WARN]'), `"${start + path}" folder not found!`)
     return []
   }
   let files: file[] = []

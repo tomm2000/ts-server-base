@@ -1,7 +1,8 @@
 import express from 'express'
+import chalk from 'chalk'
 
 export function get(app: express.Application, route: string) {
-  console.log(`[INFO] laoded route: ${route} : get`)
+  console.log(chalk.blue('[INFO]'), `laoded route: ${route} : post`)
 
   app.get(`${route}`, (req: express.Request, res) => {
 
